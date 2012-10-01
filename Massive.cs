@@ -411,11 +411,9 @@ namespace Massive {
         /// With a PK property (whatever PrimaryKeyField is set to) will be created at UPDATEs
         /// </summary>
         public virtual int Save(params object[] things) {
-            foreach (var item in things) {
-                if (!IsValid(item)) {
-                    throw new InvalidOperationException("Can't save this item: " + String.Join("; ", Errors.ToArray()));
-                }
-            }
+            if (things.Any(item => !IsValid(item)))
+                throw new InvalidOperationException("Can't save this item: " + String.Join("; ", Errors.ToArray()));
+            
             var commands = BuildCommands(things);
             return Execute(commands);
         }
