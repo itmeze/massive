@@ -197,14 +197,14 @@ namespace Massive {
             using (var conn = OpenConnection()) {
                 var rdr = CreateCommand(sql, conn, args).ExecuteReader();
                 while (rdr.Read()) {
-                    yield return rdr.RecordToExpando(); ;
+                    yield return rdr.RecordToExpando();
                 }
             }
         }
         public virtual IEnumerable<dynamic> Query(string sql, DbConnection connection, params object[] args) {
             using (var rdr = CreateCommand(sql, connection, args).ExecuteReader()) {
                 while (rdr.Read()) {
-                    yield return rdr.RecordToExpando(); ;
+                    yield return rdr.RecordToExpando();
                 }
             }
         }
@@ -257,7 +257,7 @@ namespace Massive {
 
 
         public virtual int Execute(DbCommand command) {
-            return Execute(new DbCommand[] { command });
+            return Execute(new[] { command });
         }
 
         public virtual int Execute(string sql, params object[] args) {
@@ -398,7 +398,7 @@ namespace Massive {
         /// This will return an Expando as a Dictionary
         /// </summary>
         public virtual IDictionary<string, object> ItemAsDictionary(ExpandoObject item) {
-            return (IDictionary<string, object>)item;
+            return item;
         }
         //Checks to see if a key is present based on the passed-in value
         public virtual bool ItemContainsKey(string key, ExpandoObject item) {
